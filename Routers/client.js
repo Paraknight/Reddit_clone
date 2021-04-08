@@ -3,6 +3,7 @@ const moment = require('moment');
 const { v4: uuid } = require('uuid');
 const { ajv, bcrypt, models } = require('../Functions');
 
+console.log(ajv);
 router.post('/signup', (req, res) => {
   const valid = ajv.validateSignup(req.body);
   if (valid === null) {
@@ -66,7 +67,7 @@ router.post('/signup', (req, res) => {
         });
       }
     });
-} else {
+  } else {
     res.status(403).send({ status: 403, message: 'Invalid request body', reason: valid });
   }
 });
