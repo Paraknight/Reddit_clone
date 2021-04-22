@@ -26,3 +26,11 @@ app.get('/ping', (req, res) => {
 const listener = app.listen(3000, () => {
   console.log('Application is live on port 3000');
 });
+if (env.env === 'prod') {
+  https.createServer({
+    cert: fs.readFileSync(path.resolve(__dirname, env.certFullChainPath)),
+    key: fs.readFileSync(path.resolve(__dirname, env.certPrivateKeyPath)),
+  }, app).listen(443);
+} else {
+  http.createServer(app).listen(3000);
+}
